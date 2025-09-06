@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	first1000digit, index := libs.FirstFibonacciWithNDigits(1000)
+	first1000digit, index := libs.FibonacciNoRecursion(1000)
 	fmt.Println(first1000digit, index)
 
 }

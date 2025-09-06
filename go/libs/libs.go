@@ -50,27 +50,18 @@ func CollatzLength(n int) int {
 	return count
 }
 
-func FirstFibonacciWithNDigits(n int) (*big.Int, int) {
-	if n <= 0 {
-		return big.NewInt(0), 1
-	}
-
-	prev := big.NewInt(0)
-	current := big.NewInt(1)
-
-	if n == 1 {
-		return big.NewInt(1), 1
-	}
-
-	index := 1
+func FibonacciNoRecursion(n int) (*big.Int, *big.Int) {
+	prev := big.NewInt(int64(0))
+	current := big.NewInt(int64(1))
+	i := big.NewInt(int64(1))
 	for {
-		next := new(big.Int)
-		next.Add(prev, current)
-		prev.Set(current)
-		current.Set(next)
-		index++
+		result := new(big.Int) // sempre zerar
+		result.Add(prev, current)
+		prev = current
+		current = result
+		i.Add(i, big.NewInt(int64(1)))
 		if len(current.String()) == n {
-			return current, index
+			return current, i
 		}
 	}
 }
