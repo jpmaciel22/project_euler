@@ -1,6 +1,9 @@
 package libs
 
-import "strconv"
+import (
+	"math/big"
+	"strconv"
+)
 
 func CrivoEratostenes(n int64) (int64, bool) { // isprime de O(sqrt(n))
 	if n <= 1 {
@@ -45,4 +48,29 @@ func CollatzLength(n int) int {
 		count++
 	}
 	return count
+}
+
+func FirstFibonacciWithNDigits(n int) (*big.Int, int) {
+	if n <= 0 {
+		return big.NewInt(0), 1
+	}
+
+	prev := big.NewInt(0)
+	current := big.NewInt(1)
+
+	if n == 1 {
+		return big.NewInt(1), 1
+	}
+
+	index := 1
+	for {
+		next := new(big.Int)
+		next.Add(prev, current)
+		prev.Set(current)
+		current.Set(next)
+		index++
+		if len(current.String()) == n {
+			return current, index
+		}
+	}
 }
