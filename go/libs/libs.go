@@ -65,3 +65,38 @@ func FibonacciNoRecursion(n int) (*big.Int, *big.Int) {
 		}
 	}
 }
+
+func Fatores(n *big.Int) []*big.Int {
+	var result []*big.Int
+
+	zero := big.NewInt(0)
+	one := big.NewInt(1)
+
+	i := big.NewInt(1)
+
+	// i*i <= n
+	for {
+		iSquared := new(big.Int).Mul(i, i)
+		if iSquared.Cmp(n) == 1 {
+			break
+		}
+
+		// n % i == 0
+		if new(big.Int).Mod(n, i).Cmp(zero) == 0 {
+			// append i
+			result = append(result, new(big.Int).Set(i))
+
+			// n / i
+			other := new(big.Int).Div(n, i)
+
+			// avoid duplicate when i*i == n
+			if other.Cmp(i) != 0 {
+				result = append(result, other)
+			}
+		}
+
+		i.Add(i, one)
+	}
+
+	return result
+}
